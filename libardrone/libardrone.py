@@ -181,6 +181,32 @@ class ARDrone(object):
     def turn_right(self):
         """Make the drone rotate right."""
         self.at(at_pcmd, True, 0, 0, 0, self.speed)
+    
+    def turn_angle(self,angle):
+        """Make the drone rotate an angle."""
+        psi0 = self.navdata[0]['psi']
+        
+        target_angle = psi0 + angle
+        
+        if target_angle >= 180:
+            target_angle -= 360
+
+        if target_angle <=-180:
+            target_angle += 360                    
+        
+        if target_angle == 0:
+            return
+                
+        if angle > 0:
+            self.turn_right()
+            direction = 'right'
+
+        if angle < 0:
+            self.turn_left()
+            direction = 'left'
+
+        while self.navdata[0]['psi'] > target_angle + 2 or self.navdata[0]['psi'] < target_angle - 2 :
+            time.sleep(0.01)
 
     def reset(self):
         """Toggle the drone's emergency state."""
