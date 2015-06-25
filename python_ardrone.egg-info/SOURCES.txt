@@ -1,3 +1,4 @@
+setup.py
 libardrone/__init__.py
 libardrone/ar2video.py
 libardrone/arnetwork.py
