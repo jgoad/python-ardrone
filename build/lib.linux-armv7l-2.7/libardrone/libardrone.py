@@ -184,8 +184,6 @@ class ARDrone(object):
     
     def turn_angle(self,angle):
         """Make the drone rotate an angle."""
-        current_speed = self.speed
-        self.speed = 0.1
         psi0 = self.navdata[0]['psi']
         
         target_angle = psi0 + angle
@@ -209,9 +207,6 @@ class ARDrone(object):
 
         while self.navdata[0]['psi'] > target_angle + 2 or self.navdata[0]['psi'] < target_angle - 2 :
             time.sleep(0.01)
-            #pass
-        
-        self.speed = current_speed
 
     def reset(self):
         """Toggle the drone's emergency state."""
